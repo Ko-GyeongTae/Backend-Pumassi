@@ -7,7 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
-import { setInitDTO } from './dto/chat.dto';
+import { setInitDTO } from '../shared/dto/chat.dto';
 
 @WebSocketGateway(4130, {
   cors: {

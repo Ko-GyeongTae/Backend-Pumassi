@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { chatRoomListDTO } from './dto/chat.dto';
+import { chatRoomListDTO } from '../shared/dto/chat.dto';
 import { Socket } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
 
