@@ -5,5 +5,8 @@ export class SignInRequest {
 
 export class SignUpRequest {
   email: string;
+  name: string;
   password: string;
+  entranceYear: number;
+  grade: number;
 }
