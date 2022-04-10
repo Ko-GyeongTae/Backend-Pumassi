@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   async signUp(body: SignUpRequest) {
-    const { email, password, ...data } = body;
+    const { email, password, name, entranceYear } = body;
 
     const user = await this.authRepository.findOne({
       where: {
@@ -84,14 +84,20 @@ export class AuthService {
       throw new BadRequestException('이미 계정이 존재합니다.');
     }
 
-    const hashedPassword = await bcrypt.hash(password, HASH_LENGTH);
+    const hash = await bcrypt.hash(password, HASH_LENGTH);
+    console.log(hash);
 
-    await this.authRepository.create({
+    const now = new Date().getFullYear();
+
+    const data = await this.authRepository.create({
       email,
-      ...data,
-      password: hashedPassword,
+      name,
+      entranceYear,
+      grade: now + 1 - entranceYear,
+      password: hash,
     });
 
+    console.log(data);
     return {
       status: HttpStatus.CREATED,
     };

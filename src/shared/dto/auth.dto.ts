@@ -8,5 +8,4 @@ export class SignUpRequest {
   name: string;
   password: string;
   entranceYear: number;
-  grade: number;
 }

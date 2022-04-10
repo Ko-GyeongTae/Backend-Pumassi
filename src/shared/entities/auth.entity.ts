@@ -26,7 +26,7 @@ export class Auth {
   @Column({ type: 'integer' })
   entranceYear: number;
 
-  @Column({ type: 'integer' })
+  @Column({ type: 'integer', nullable: true })
   grade: number;
 
   @CreateDateColumn({
