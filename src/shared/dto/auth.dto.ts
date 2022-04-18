@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsString } from 'class-validator';
 
 export class SignInRequest {
   @IsEmail()
@@ -10,6 +10,7 @@ export class SignInRequest {
 }
 
 export class SignUpRequest {
+  @IsEmail()
   @IsString()
   email: string;
 
@@ -19,6 +20,6 @@ export class SignUpRequest {
   @IsString()
   password: string;
 
-  @IsString()
+  @IsNumber()
   entranceYear: number;
 }
