@@ -5,7 +5,7 @@ import routes from './routes';
 import bodyParser from 'body-parser';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
-import { logger } from './utils/logger';
+import logger from './utils/logger';
 dotenv.config();
 
 const app: Application = express();
@@ -15,18 +15,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-  logger.info('로그 출력 test용 middleware');
-
-  logger.error('error 메시지');
-  logger.warn('warn 메시지');
-  logger.info('info 메시지');
-  logger.http('http 메시지');
-  logger.debug('debug 메시지');
-
-  next();
-});
-
+logger.error('level called customedError');
+logger.warn('level called customedWarn');
+logger.info('level called customedInfo');
+logger.debug('level called customedDebug');
 app.use('/', routes);
 
 const MySQLDataSource = new DataSource({
