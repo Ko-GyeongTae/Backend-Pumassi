@@ -29,7 +29,7 @@ const logger = createLogger({
     new transports.Console({
       level: 'debug',
       format: format.combine(
-        format.label({ label: '[my-server]' }),
+        format.label({ label: '[Pumassi-Server]' }),
         format.timestamp({
           format: 'YYYY-MM-DD HH:mm:ss',
         }),

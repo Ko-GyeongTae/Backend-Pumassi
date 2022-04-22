@@ -15,13 +15,9 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-logger.error('level called customedError');
-logger.warn('level called customedWarn');
-logger.info('level called customedInfo');
-logger.debug('level called customedDebug');
 app.use('/', routes);
 
-const MySQLDataSource = new DataSource({
+export const MySQLDataSource = new DataSource({
   //MySQL 서버 연결
   type: 'mysql',
   host: process.env.HOST,
@@ -37,16 +33,12 @@ const MySQLDataSource = new DataSource({
 
 MySQLDataSource.initialize()
   .then(() => {
-    console.log('Connect to MySQL successfully!');
+    logger.info('✅  Connect to MySQL successfully!');
   })
   .catch((err) => {
-    console.error('Error during Data Source initialization', err);
+    logger.error('❌  Error during Data Source initialization', err);
   });
 
 app.listen(4120, () => {
-  console.log(`
-######################################
-🛡️  Server listening on port: 4120  🛡️
-######################################
-`);
+  logger.info('✅  Server listening on port: 4120');
 });
