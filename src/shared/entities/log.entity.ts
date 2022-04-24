@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Log {
@@ -16,4 +21,7 @@ export class Log {
 
   @Column({ type: 'varchar', length: '40' })
   originalUrl: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }

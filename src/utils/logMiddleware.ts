@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { MySQLDataSource } from '../server';
 import { Log } from '../shared/entities/log.entity';
+import logger from './logger';
 
 export const logMiddleware = () => {
   return function (req: Request, res: Response, next: NextFunction) {
@@ -12,6 +13,8 @@ export const logMiddleware = () => {
     logObj.method = method;
     logObj.originalUrl = originalUrl;
     logObj.agent = agent ? agent : 'null';
+
+    logger.debug(`${method} -> ${originalUrl} [${agent}:${ip}]`);
 
     const logRepository = MySQLDataSource.getRepository(Log);
     logRepository.save(logObj);

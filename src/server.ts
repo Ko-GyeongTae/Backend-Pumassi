@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import logger from './utils/logger';
+import { logMiddleware } from './utils/logMiddleware';
 dotenv.config();
 
 const app: Application = express();
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(logMiddleware());
 app.use('/', routes);
 
 export const MySQLDataSource = new DataSource({
