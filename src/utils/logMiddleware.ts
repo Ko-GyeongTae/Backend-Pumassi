@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import { MySQLDataSource } from '../server';
+import { getRepository } from 'typeorm';
 import { Log } from '../shared/entities/log.entity';
 import logger from './logger';
 
 export const logMiddleware = () => {
-  return function (req: Request, res: Response, next: NextFunction) {
+  return async function (req: Request, res: Response, next: NextFunction) {
     const { ip, method, originalUrl } = req;
     const agent = req.headers['user-agent'];
 
@@ -16,7 +16,7 @@ export const logMiddleware = () => {
 
     logger.debug(`${method} -> ${originalUrl} [${agent}:${ip}]`);
 
-    const logRepository = MySQLDataSource.getRepository(Log);
+    const logRepository = getRepository(Log);
     logRepository.save(logObj);
 
     next();

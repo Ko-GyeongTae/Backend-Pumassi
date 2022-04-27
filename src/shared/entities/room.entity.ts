@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Auth } from './auth.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class Room {
@@ -29,6 +29,6 @@ export class Room {
   })
   deletedAt: Date;
 
-  @ManyToOne(() => Auth, (owner) => owner.rooms)
-  member: Auth;
+  @ManyToOne(() => User, (owner) => owner.rooms)
+  member: User;
 }
