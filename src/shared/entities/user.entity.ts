@@ -1,7 +1,6 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -10,17 +9,17 @@ import {
 import { Room } from './room.entity';
 
 @Entity()
-export class Auth {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 20, unique: true })
   email: string;
 
   @Column({ type: 'varchar', length: 20 })
   name: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({ type: 'integer' })
@@ -41,9 +40,8 @@ export class Auth {
   })
   updatedAt: Date;
 
-  @DeleteDateColumn({
+  @Column({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   deletedAt: Date;
 
