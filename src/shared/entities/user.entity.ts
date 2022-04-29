@@ -1,7 +1,6 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -41,9 +40,8 @@ export class User {
   })
   updatedAt: Date;
 
-  @DeleteDateColumn({
+  @Column({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   deletedAt: Date;
 

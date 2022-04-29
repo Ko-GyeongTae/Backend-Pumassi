@@ -1,7 +1,6 @@
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   ManyToOne,
   PrimaryColumn,
@@ -22,10 +21,8 @@ export class Room {
   })
   createdAt: Date;
 
-  @DeleteDateColumn({
+  @Column({
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   deletedAt: Date;
 
