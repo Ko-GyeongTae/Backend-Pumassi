@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { signIn, signUp } from '../api/auth';
 import { SignInRequest, SignUpRequest } from '../shared/dto/auth.dto';
-import { validateMiddleware } from '../utils/validateMiddleware';
+import { validateMiddleware } from '../middleware/validateMiddleware';
 
 const router = Router();
 

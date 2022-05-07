@@ -1,3 +1,5 @@
+// deprecated
+
 // logger.ts
 import path from 'path';
 import { createLogger, transports, format } from 'winston';
