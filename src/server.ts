@@ -8,6 +8,7 @@ import morgan from 'morgan';
 import { logMiddleware } from './middleware/logMiddleware';
 import { dbCreateConnection } from './utils/db';
 import { createStream } from './utils/morganLogger';
+import 'reflect-metadata';
 
 const bootstrap = async () => {
   const app: Application = express();
@@ -18,12 +19,20 @@ const bootstrap = async () => {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(logMiddleware());
-  app.use(morgan('combined', { stream: createStream() }));
 
+  app.use(morgan('combined', { stream: createStream() }));
   app.use(morgan('dev'));
 
   await dbCreateConnection();
   app.use('/', routes);
+
+  app.get('/cookie', (req, res) => {
+    console.log(req.cookies);
+    res
+      .cookie('test', 'testValue', { maxAge: 1000 * 20 })
+      .cookie('test1', 'test1Value', { maxAge: 1000 * 20, httpOnly: true })
+      .sendStatus(200);
+  });
 
   app.listen(4120, () => {
     console.log('✅  Server listening on port: 4120');
