@@ -12,7 +12,7 @@ export const uploadList = async (req: Request, res: Response) => {
         return saveAsset(f);
       }),
     );
-    await res.status(201).json(assets);
+    res.status(201).json(assets);
   } else {
     res.status(400).json({ message: '파일 업로드에 실패했습니다.' });
   }

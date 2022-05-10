@@ -10,7 +10,7 @@ export const upload = async (req: Request, res: Response) => {
     asset.key = file.key;
     asset.location = file.location;
     await assetRepository.save(asset);
-    await res.status(201).json(asset);
+    res.status(201).json(asset);
   } else {
     res.status(400).json({ message: '파일 업로드에 실패했습니다.' });
   }
