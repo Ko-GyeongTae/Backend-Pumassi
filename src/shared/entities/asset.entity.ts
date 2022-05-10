@@ -13,7 +13,10 @@ export class Asset {
   id: string;
 
   @Column({ type: 'varchar' })
-  url: string;
+  key: string;
+
+  @Column({ type: 'varchar' })
+  location: string;
 
   @ManyToOne(() => Post, (post) => post.assets)
   post: Post;
