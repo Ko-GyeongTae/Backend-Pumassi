@@ -10,7 +10,7 @@
     "build": "tsc -p .",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/src/server.js",
-    "start:dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/server.ts",
+    "start:dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" --files src/server.ts",
     "start:prod": "node dist/src/server.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
@@ -43,6 +43,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/multer": "^1.4.7",
     "@types/node": "^17.0.29",
     "@types/validator": "^13.7.2",
     "@types/winston": "^2.4.4",
