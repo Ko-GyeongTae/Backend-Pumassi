@@ -18,6 +18,7 @@ const config: ConnectionOptions = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
+  logging: true,
   entities: [
     __dirname + '/../shared/entities/**.{js,ts}', //Entity 경로 설정
   ],
