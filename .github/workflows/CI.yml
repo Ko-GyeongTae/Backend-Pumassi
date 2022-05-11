@@ -37,7 +37,7 @@ jobs:
         with:
           script: |
             docker build . --file Dockerfile --tag Pumassi:$PACKAGE_VERSION
-            docker push kokt0203/pumassi:$VERSION
+            docker push kokt0203/pumassi:$PACKAGE_VERSION
 
   notice:
     name: notice
