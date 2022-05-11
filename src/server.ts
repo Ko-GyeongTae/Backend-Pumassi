@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import routes from './routes';
@@ -9,6 +9,7 @@ import { logMiddleware } from './middleware/logMiddleware';
 import { dbCreateConnection } from './utils/db';
 import { createStream } from './utils/morganLogger';
 import { Server } from 'socket.io';
+import * as uuid from 'uuid';
 import http from 'http';
 import 'reflect-metadata';
 
@@ -27,12 +28,12 @@ app.use(morgan('dev'));
 
 app.use('/', routes);
 
-app.get('/cookie', (req, res) => {
-  console.log(req.cookies);
-  res
-    .cookie('test', 'testValue', { maxAge: 1000 * 20 })
-    .cookie('test1', 'test1Value', { maxAge: 1000 * 20, httpOnly: true })
-    .sendStatus(200);
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    requestIP: req.ip,
+    uuid: uuid.v4().toString(),
+    status: 'Alive',
+  });
 });
 
 const httpServer = http.createServer(app);

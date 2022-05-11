@@ -9,8 +9,6 @@ on:
   pull_request:
     branches: [main]
 
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,19 +23,50 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd Backend-Pumassi
-            git pull origin main
-            docker build -t kokt0203/pumassi-server .
-            docker run -it --name Pumassi-Server -d -p 4120:4120 kokt0203/pumassi-server
+            cd Pumassi
+            sh start.sh
 
-      - name: Notice
-        uses: 8398a7/action-slack@v3
+  notice:
+    name: notice
+    needs: [build, docker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: CI Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
         with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,author,workflow,took # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
+          severity: info
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CI.
+          details: 'Success to build with NodeJS:16 and dockerize repository'
+          footer: Ko-GyeongTae
+          text: Workflow is Finished.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: CI Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CI.
+          details: 'Fail to build with NodeJS:16 and dockerize repository'
+          footer: Ko-GyeongTae
+          text: Workflow is Failed.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+          severity: warn
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CI.
+          details: 'Cancel to build with NodeJS:16 and dockerize repository'
+          footer: Ko-GyeongTae
+          text: Workflow is Canceled.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
