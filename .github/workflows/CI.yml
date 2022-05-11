@@ -30,6 +30,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: test
+        run: ls ../../
       - name: package-version
         run: node -p -e '`PACKAGE_VERSION=${require("../../package.json").version}`' >> $GITHUB_ENV
       - name: Build the Docker image
