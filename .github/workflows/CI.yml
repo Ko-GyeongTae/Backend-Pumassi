@@ -31,13 +31,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: package-version
-        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $PACKAGE_VERSION
+        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
       - name: Build the Docker image
         uses: actions/checkout@v3
         with:
           script: |
-            docker build . --file Dockerfile --tag Pumassi:$PACKAGE_VERSION
-            docker push kokt0203/pumassi:$PACKAGE_VERSION
+            docker build . --file Dockerfile --tag Pumassi:${{ env.PACKAGE_VERSION }}
+            docker push kokt0203/pumassi:${{ env.PACKAGE_VERSION }}
 
   notice:
     name: notice
