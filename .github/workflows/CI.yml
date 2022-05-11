@@ -35,6 +35,7 @@ jobs:
         with:
           script: |
             export VERSION=$(node -p "require('./package.json').version")
+            echo VERSION
             docker build . --file Dockerfile --tag Pumassi:$VERSION
             docker push kokt0203/pumassi:$VERSION
 
