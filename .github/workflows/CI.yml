@@ -14,12 +14,14 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: build project with node16
+      - name: Checkout
+      - uses: actions/checkout@v3
+
+      - name: Setup Node 16
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: npm run build
+        run: npm run build
 
   docker:
     name: docker
@@ -28,9 +30,9 @@ jobs:
     steps:
       - name: Build the Docker image
       - uses: actions/checkout@v3
-      - run: export VERSION=$(node -p "require('./package.json').version")
-      - run: docker build . --file Dockerfile --tag Pumassi:$VERSION
-      - run: docker push Pumassi:$VERSION
+        run: export VERSION=$(node -p "require('./package.json').version")
+        run: docker build . --file Dockerfile --tag Pumassi:$VERSION
+        run: docker push Pumassi:$VERSION
 
   notice:
     name: notice
