@@ -11,7 +11,6 @@ import { createStream } from './utils/morganLogger';
 import { Server } from 'socket.io';
 import http from 'http';
 import 'reflect-metadata';
-import { jwtSocketMiddleware } from './middleware/jwtMiddleware';
 
 const app: Application = express();
 
