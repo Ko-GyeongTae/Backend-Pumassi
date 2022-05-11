@@ -21,7 +21,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-          script:
+          script: |
+            - npm install
             - npm run build
 
   docker:
@@ -37,7 +38,7 @@ jobs:
       - name: Docker build
         run: docker build . --file Dockerfile --tag Pumassi:$VERSION
       - name: Docker push
-        run: docker push Pumassi:$VERSION
+        run: docker push kokt0203/pumassi:$VERSION
 
   notice:
     name: notice
