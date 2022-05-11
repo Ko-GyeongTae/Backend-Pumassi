@@ -10,8 +10,34 @@ on:
     branches: [develop]
 
 jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          script:
+            - echo Build Project
+            - npm run build
+
+  docker:
+    name: docker
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      with:
+        script: 
+          - echo Dockerize Project
+          - export VERSION=$(node -p "require('./package.json').version")
+          - docker build . --file Dockerfile --tag Pumassi:$VERSION
+          - docker push Pumassi:$VERSION
 
   notice:
+    name: notice
     runs-on: ubuntu-latest
       steps:
         - uses: sarisia/actions-status-discord@v1
