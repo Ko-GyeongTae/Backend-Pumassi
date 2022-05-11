@@ -19,9 +19,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-          script:
-            - echo Build Project
-            - npm run build
+      - run: npm run build
 
   docker:
     name: docker
@@ -30,12 +28,9 @@ jobs:
     steps:
       - name: Build the Docker image
       - uses: actions/checkout@v3
-        with:
-          script:
-            - echo Dockerize Project
-            - export VERSION=$(node -p "require('./package.json').version")
-            - docker build . --file Dockerfile --tag Pumassi:$VERSION
-            - docker push Pumassi:$VERSION
+      - run: export VERSION=$(node -p "require('./package.json').version")
+      - run: docker build . --file Dockerfile --tag Pumassi:$VERSION
+      - run: docker push Pumassi:$VERSION
 
   notice:
     name: notice
