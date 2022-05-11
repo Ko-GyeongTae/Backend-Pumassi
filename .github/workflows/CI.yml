@@ -47,7 +47,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_USERNAME: Pumassi CI
           DISCORD_AVATAR: https://avatars.githubusercontent.com/u/54465427?v=4
-          DISCORD_EMBEDS: { 'title': 'Github Action', 'color': '#92BC79' }
+          DISCORD_EMBEDS: ${{ toJSON(job) }}
         uses: Ilshidur/action-discord@master
         with:
           args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
