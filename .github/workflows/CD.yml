@@ -4,8 +4,11 @@
 name: CD
 
 on:
-  tags:
-    branches: [main]
+  push:
+    branches:
+      - 'main'
+    tags:
+      - '**'
 
 jobs:
   CD:
