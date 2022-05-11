@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { upload } from '../api/asset';
-import { uploadList } from '../api/asset/uploadList';
+import { upload, uploadList } from '../api/asset';
 import { jwtMiddleware } from '../middleware/jwtMiddleware';
 import { multerMiddleware } from '../middleware/multerMiddleware';
 
