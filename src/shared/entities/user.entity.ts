@@ -42,6 +42,7 @@ export class User {
 
   @Column({
     type: 'timestamp',
+    nullable: true,
   })
   deletedAt: Date;
 

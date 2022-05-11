@@ -24,6 +24,6 @@ export class Asset {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   deletedAt: Date;
 }

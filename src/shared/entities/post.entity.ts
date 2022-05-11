@@ -28,7 +28,7 @@ export class Post {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   deletedAt: Date;
 
   @OneToMany(() => Asset, (asset) => asset.post)
