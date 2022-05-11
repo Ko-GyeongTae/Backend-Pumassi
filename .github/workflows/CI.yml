@@ -38,19 +38,19 @@ jobs:
       - name: Docker push
         run: docker push Pumassi:$VERSION
 
-  # notice:
-  #   name: notice
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Notice to discord
-  #     - uses: sarisia/actions-status-discord@v1
-  #       if: always()
-  #       env:
-  #         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-  #       with:
-  #         nodetail: true
-  #       title: 'Pumassi CI'
-  #       description: 'Build Pumassi Server'
-  #       color: 0x92BC79
-  #       username: GitHub Actions
-  #       avatar_url: https://www.google.com/url?sa=i&url=https%3A%2F%2Fduinaru.github.io%2Fposts%2F2020-09-11-deloy-github-pages-with-actions%2F&psig=AOvVaw0UJmw-h0XbhCtoOJyF7rvJ&ust=1652317287345000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCIC3xdqf1vcCFQAAAAAdAAAAABAD
+  notice:
+    name: notice
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notice to discord
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          nodetail: true
+        title: 'Pumassi CI'
+        description: 'Build Pumassi Server'
+        color: 0x92BC79
+        username: GitHub Actions
+        avatar_url: https://www.google.com/url?sa=i&url=https%3A%2F%2Fduinaru.github.io%2Fposts%2F2020-09-11-deloy-github-pages-with-actions%2F&psig=AOvVaw0UJmw-h0XbhCtoOJyF7rvJ&ust=1652317287345000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCIC3xdqf1vcCFQAAAAAdAAAAABAD
