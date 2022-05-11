@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  Pumassi:
+    image: 'kokt0203/pumassi:0.1'
+    container_name: Pumassi
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      - DATABASE=${DATABASE}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_S3_BUCKET=${AWS_S3_BUCKET}
+    volumes:
+      - ~/Document/code/DSM/Backend-Pumassi/logs/:/app/dist/logs # 연결할 로컬 디렉토리
+    ports:
+      - 4120:4120
+    restart: always

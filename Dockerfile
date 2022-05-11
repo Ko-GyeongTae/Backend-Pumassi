@@ -1,13 +1,25 @@
-FROM node:16 AS builder
+FROM node:16-alpine
 
 WORKDIR /app
 
 COPY . .
+
+ENV JWT_SECRET ${JWT_SECRET}
+ENV HOST ${HOST}
+ENV PORT ${PORT}
+ENV USERNAME ${USERNAME}
+ENV PASSWORD ${PASSWORD}
+ENV DATABASE ${DATABASE}
+ENV AWS_ACCESS_KEY_ID ${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY ${AWS_SECRET_ACCESS_KEY}
+ENV AWS_REGION ${AWS_REGION}
+ENV AWS_S3_BUCKET ${AWS_S3_BUCKET}
+
+VOLUME [ "/app/dist/logs" ]
+
 RUN npm install
 RUN npm run build
 
-FROM node:16-alpine
-WORKDIR /app
+CMD ["npm", "run", "start"]
 
-COPY --from=builder /app ./
-CMD ["npm", "run", "start:prod"]
+EXPOSE 4120
