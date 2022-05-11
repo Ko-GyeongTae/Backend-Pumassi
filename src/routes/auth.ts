@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { refresh, signIn, signUp } from '../api/auth';
+import { refresh, signIn, signOut, signUp } from '../api/auth';
 import { SignInRequest, SignUpRequest } from '../shared/dto/auth.dto';
 import { validateBodyMiddleware } from '../middleware/validateMiddleware';
 
@@ -22,5 +22,7 @@ router.post(
   signUp,
 );
 router.put('/refresh', refresh);
+
+router.get('/sign-out', signOut);
 
 export default router;
