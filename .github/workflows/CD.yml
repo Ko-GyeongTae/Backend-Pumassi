@@ -6,11 +6,9 @@ name: Develop deploy
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  build:
+  CD:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
