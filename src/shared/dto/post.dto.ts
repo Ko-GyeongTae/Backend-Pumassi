@@ -1,16 +1,17 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsString, Min } from 'class-validator';
+import { IsArray, IsInt, IsString, Min } from 'class-validator';
+import { Asset } from '../entities/asset.entity';
 
 export class getPostListQueryDTO {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  take: string;
+  readonly take: number;
 
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  page: string;
+  readonly page: number;
 }
 
 export class createPostDTO {
@@ -22,6 +23,9 @@ export class createPostDTO {
 
   @IsString()
   reward: string;
+
+  @IsArray()
+  assets: Asset[];
 }
 
 export class updatePostDTO {
@@ -33,4 +37,7 @@ export class updatePostDTO {
 
   @IsString()
   reward: string;
+
+  @IsArray()
+  assets: Asset[];
 }
