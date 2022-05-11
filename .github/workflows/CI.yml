@@ -30,8 +30,12 @@ jobs:
     steps:
       - name: Build the Docker image
       - uses: actions/checkout@v3
+
+      - name: Get Version
         run: export VERSION=$(node -p "require('./package.json').version")
+      - name: Docker build
         run: docker build . --file Dockerfile --tag Pumassi:$VERSION
+      - name: Docker push
         run: docker push Pumassi:$VERSION
 
   notice:
