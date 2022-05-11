@@ -4,11 +4,11 @@
 name: Develop deploy
 
 on:
-  pull_request:
+  push:
     branches: [main]
 
 jobs:
-  build:
+  CD:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
