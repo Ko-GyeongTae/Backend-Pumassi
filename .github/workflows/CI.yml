@@ -30,13 +30,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: package-version
+        run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $PACKAGE_VERSION
       - name: Build the Docker image
         uses: actions/checkout@v3
         with:
           script: |
-            export VERSION=$(node -p "require('./package.json').version")
-            echo VERSION
-            docker build . --file Dockerfile --tag Pumassi:$VERSION
+            docker build . --file Dockerfile --tag Pumassi:$PACKAGE_VERSION
             docker push kokt0203/pumassi:$VERSION
 
   notice:
