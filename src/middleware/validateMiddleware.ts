@@ -4,12 +4,31 @@ import { NextFunction, Request, Response } from 'express';
 
 type DTO<T> = new () => T;
 
-export const validateMiddleware = <T extends object>(
+export const validateBodyMiddleware = <T extends object>(
   dto: DTO<T>,
   message: string,
 ) => {
   return function (req: Request, res: Response, next: NextFunction) {
     const data = plainToClass(dto, req.body);
+
+    validateOrReject(data, {
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    })
+      .then(() => next())
+      .catch((e) => {
+        console.log(e);
+        res.status(400).json({ message });
+      });
+  };
+};
+
+export const validateQueryMiddleware = <T extends object>(
+  dto: DTO<T>,
+  message: string,
+) => {
+  return function (req: Request, res: Response, next: NextFunction) {
+    const data = plainToClass(dto, req.query);
 
     validateOrReject(data, {
       whitelist: true,

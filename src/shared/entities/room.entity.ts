@@ -23,6 +23,7 @@ export class Room {
 
   @Column({
     type: 'timestamp',
+    nullable: true,
   })
   deletedAt: Date;
 

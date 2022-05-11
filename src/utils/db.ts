@@ -18,6 +18,7 @@ const config: ConnectionOptions = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
+  logging: true,
   entities: [
     __dirname + '/../shared/entities/**.{js,ts}', //Entity 경로 설정
   ],
@@ -28,9 +29,8 @@ export const dbCreateConnection = async (): Promise<Connection | null> => {
   try {
     const conn = await createConnection(config);
     console.log(
-      `Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`,
+      `✅  Database connection success. Connection name: '${conn.name}' Database: '${conn.options.database}'`,
     );
-    console.log(__dirname + '/../shared/entities/*.{js,ts}');
   } catch (err: any) {
     if (err.name === 'AlreadyHasActiveConnectionError') {
       const activeConnection = getConnectionManager().get(config.name);
