@@ -21,7 +21,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-        run: npm run build
+          script:
+            - npm run build
 
   docker:
     name: docker
