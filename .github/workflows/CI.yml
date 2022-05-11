@@ -10,8 +10,8 @@ on:
     branches: [develop]
 
 jobs:
-  build:
-    name: build
+  CI:
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,24 +25,6 @@ jobs:
             npm install
             npm run build
 
-  docker:
-    name: docker
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build the Docker image
-        uses: actions/checkout@v3
-        with:
-          script: |
-            export VERSION=$(node -p "require('./package.json').version")
-            docker build . --file Dockerfile --tag Pumassi:$VERSION
-            docker push kokt0203/pumassi:$VERSION
-
-  notice:
-    name: notice
-    needs: [build, docker]
-    runs-on: ubuntu-latest
-    steps:
       - name: CI Success
         uses: rjstone/discord-webhook-notify@v1
         if: success()
