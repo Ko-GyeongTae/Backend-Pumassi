@@ -84,6 +84,7 @@ jobs:
           text: Workflow is Canceled.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   Deploy:
+    needs: [CD]
     runs-on: ubuntu-latest
     steps:
       - name: SSH Remote Commands
