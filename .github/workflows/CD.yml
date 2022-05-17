@@ -95,8 +95,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           timeout: 40s
           scrirpt: |
-            echo Start server
-            cd pumassi-server
+            cd ~/pumassi-server
             git pull origin main
             sh start.sh
 
