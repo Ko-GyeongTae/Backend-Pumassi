@@ -1,8 +1,18 @@
 version: '3.7'
 services:
-  Pumassi:
-    image: 'kokt0203/pumassi:0.1'
-    container_name: Pumassi
+  nginx:
+    image: nginx:1.21.6-alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    container_name: nginx-proxy
+    depends_on:
+      - Server-1
+      - Server-2
+  Server-1:
+    image: 'kokt0203/pumassi:latest'
+    container_name: Pumassi-1
     environment:
       - JWT_SECRET=${JWT_SECRET}
       - HOST=${HOST}
@@ -17,5 +27,24 @@ services:
     volumes:
       - ~/Document/code/DSM/Backend-Pumassi/logs/:/app/dist/logs # 연결할 로컬 디렉토리
     ports:
-      - 4120:4120
+      - 4120:${PORT}
+    restart: always
+  Server-2:
+    image: 'kokt0203/pumassi:latest'
+    container_name: Pumassi-2
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - USERNAME=${USERNAME}
+      - PASSWORD=${PASSWORD}
+      - DATABASE=${DATABASE}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_S3_BUCKET=${AWS_S3_BUCKET}
+    volumes:
+      - ~/Document/code/DSM/Backend-Pumassi/logs/:/app/dist/logs # 연결할 로컬 디렉토리
+    ports:
+      - 4121:${PORT}
     restart: always

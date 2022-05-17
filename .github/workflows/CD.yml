@@ -83,3 +83,18 @@ jobs:
           footer: Ko-GyeongTae
           text: Workflow is Canceled.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          timeout: 40s
+          scrirpt: |
+            cd pumassi-server
+            git pull origin main
+            sh start.sh
