@@ -90,12 +90,48 @@ jobs:
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@v0.1.4
         with:
+          key: ${{ secrets.SSH_PASSWORD }}
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           timeout: 40s
           scrirpt: |
             cd pumassi-server
             git pull origin main
             sh start.sh
+
+      - name: CD Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+          severity: info
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CD.
+          details: 'Success to deploy on server'
+          footer: Ko-GyeongTae
+          text: Workflow is Finished.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: CD Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CD.
+          details: 'Fail to deploy on server'
+          footer: Ko-GyeongTae
+          text: Workflow is Failed.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: CD Cancelled
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+          severity: warn
+          username: Github Actions
+          avatarUrl: https://avatars.githubusercontent.com/u/54465427?v=4
+          description: Pumassi CD.
+          details: 'Cancel to deploy on server'
+          footer: Ko-GyeongTae
+          text: Workflow is Canceled.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
