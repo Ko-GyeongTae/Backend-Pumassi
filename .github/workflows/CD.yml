@@ -94,7 +94,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           timeout: 40s
-          scrirpt: |
+          script: |
             cd ~/pumassi-server
             git pull origin main
             sh start.sh
