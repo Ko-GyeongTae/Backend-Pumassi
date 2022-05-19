@@ -24,7 +24,6 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
     {
       id: user.id,
       email: user.email,
-      name: user.name,
       entranceYear: user.entranceYear,
     },
     '3h',

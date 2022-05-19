@@ -38,7 +38,6 @@ export const refresh = async (req: Request, res: Response) => {
     {
       id: user.id,
       email: user.email,
-      name: user.name,
       entranceYear: user.entranceYear,
     },
     '3h',
