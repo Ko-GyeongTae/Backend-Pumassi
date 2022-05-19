@@ -4,7 +4,7 @@ import { User } from '../../shared/entities/user.entity';
 import { getConnection, getRepository } from 'typeorm';
 
 export const signUp = async (req: Request, res: Response) => {
-  const { email, name, password, entranceYear } = req.body;
+  const { email, password, entranceYear } = req.body;
 
   const userRepository = getRepository(User);
 
@@ -28,7 +28,6 @@ export const signUp = async (req: Request, res: Response) => {
 
   const userObj = new User();
   userObj.email = email;
-  userObj.name = name;
   userObj.password = hash;
   userObj.entranceYear = entranceYear;
 
