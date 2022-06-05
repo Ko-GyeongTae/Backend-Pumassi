@@ -9,7 +9,6 @@ import { logMiddleware } from './middleware/logMiddleware';
 import { dbCreateConnection } from './utils/db';
 import { createStream } from './utils/morganLogger';
 import { Server } from 'socket.io';
-import uuid from 'uuid';
 import http from 'http';
 import 'reflect-metadata';
 import { socket } from './chat/chat';
@@ -32,7 +31,7 @@ app.use('/', routes);
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({
     requestIP: req.ip,
-    uuid: uuid.v4().toString(),
+    date: new Date().toString(),
     status: 'Alive',
   });
 });
@@ -42,7 +41,6 @@ const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: '*',
-    credentials: true,
   },
 });
 

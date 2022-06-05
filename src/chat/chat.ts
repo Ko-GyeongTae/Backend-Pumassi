@@ -3,9 +3,9 @@ import uuid from 'uuid';
 import logger from '../utils/winstonLogger';
 
 const EVENTS = {
-  connection: 'connection',
+  CONNECTION: 'CONNECTION',
   CLIENT: {
-    CREATE_ROOM: 'CREATE_Room',
+    CREATE_ROOM: 'CREATE_ROOM',
     SEND_ROOM_MESSAGE: 'SEND_ROOM_MESSAGE',
     JOIN_ROOM: 'JOIN_ROOM',
   },
@@ -21,7 +21,7 @@ const rooms: Record<string, { name: string }> = {};
 export function socket({ io }: { io: Server }) {
   console.log(`✅  Sockets enabled`);
 
-  io.on(EVENTS.connection, (socket: Socket) => {
+  io.on(EVENTS.CONNECTION, (socket: Socket) => {
     logger.info(`User connected ${socket.id}`);
 
     socket.emit(EVENTS.SERVER.ROOMS, rooms);
