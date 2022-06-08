@@ -16,6 +16,7 @@ import { socket } from './chat/chat';
 const app: Application = express();
 
 app.set('port', 4120);
+app.set('host', '0.0.0.0');
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
@@ -44,7 +45,7 @@ const io = new Server(httpServer, {
   },
 });
 
-httpServer.listen(app.get('port'), async () => {
+httpServer.listen(app.get('port'), app.get('host'), async () => {
   await dbCreateConnection();
   console.log(`✅  Server listening on port: ${app.get('port')}`);
 
