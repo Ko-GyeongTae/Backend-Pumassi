@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import logger from '../utils/winstonLogger';
 
 const EVENTS = {
-  CONNECTION: 'CONNECTION',
+  CONNECTION: 'connection',
   CLIENT: {
     CREATE_ROOM: 'CREATE_ROOM',
     SEND_ROOM_MESSAGE: 'SEND_ROOM_MESSAGE',
