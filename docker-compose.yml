@@ -1,15 +1,23 @@
 version: '3.7'
 services:
-  nginx:
+  Proxy:
     image: kokt0203/nginx-geoip:latest
     container_name: Pumassi-Proxy
     ports:
       - 80:80
     volumes:
       - ./proxy/nginx.conf:/etc/nginx/nginx.conf
+    restart: on-failure
+  Support:
+    image: kokt0203/nginx-geoip:latest
+    container_name: Proxy-Support
+    ports:
+      - 8888:8888
+    volumes:
+      - ./proxy/nginx-1.conf:/etc/nginx/nginx.conf
     restart: always
   Server-1:
-    image: 'kokt0203/pumassi:latest'
+    image: kokt0203/pumassi:main
     container_name: Pumassi-1
     environment:
       - JWT_SECRET=${JWT_SECRET}
@@ -28,7 +36,7 @@ services:
       - ${PORT}
     restart: always
   Server-2:
-    image: 'kokt0203/pumassi:latest'
+    image: kokt0203/pumassi:main
     container_name: Pumassi-2
     environment:
       - JWT_SECRET=${JWT_SECRET}
