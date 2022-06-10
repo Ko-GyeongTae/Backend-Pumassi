@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Room } from './room.entity';
+import { UserRoom } from './user_room.entity';
 
 @Entity()
 export class User {
@@ -43,6 +43,6 @@ export class User {
   })
   deletedAt: Date;
 
-  @OneToMany(() => Room, (room) => room.member)
-  rooms: Room[];
+  @OneToMany(() => UserRoom, (ur) => ur.uid)
+  user: User[];
 }

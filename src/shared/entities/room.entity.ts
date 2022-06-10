@@ -2,10 +2,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { UserRoom } from './user_room.entity';
 
 @Entity()
 export class Room {
@@ -27,6 +27,6 @@ export class Room {
   })
   deletedAt: Date;
 
-  @ManyToOne(() => User, (owner) => owner.rooms)
-  member: User;
+  @OneToMany(() => UserRoom, (ur) => ur.rid)
+  rooms: Room[];
 }
