@@ -5,6 +5,7 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
+import { Message } from './message.entity';
 import { UserRoom } from './user_room.entity';
 
 @Entity()
@@ -28,5 +29,8 @@ export class Room {
   deletedAt: Date;
 
   @OneToMany(() => UserRoom, (ur) => ur.rid)
-  rooms: Room[];
+  user_rooms: UserRoom[];
+
+  @OneToMany(() => Message, (message) => message.user)
+  messages: Message[];
 }

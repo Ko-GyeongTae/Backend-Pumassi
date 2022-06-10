@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Message } from './message.entity';
 import { UserRoom } from './user_room.entity';
 
 @Entity()
@@ -44,5 +45,8 @@ export class User {
   deletedAt: Date;
 
   @OneToMany(() => UserRoom, (ur) => ur.uid)
-  user: User[];
+  user_rooms: UserRoom[];
+
+  @OneToMany(() => Message, (message) => message.user)
+  messages: Message[];
 }

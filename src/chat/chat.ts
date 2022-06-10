@@ -1,5 +1,5 @@
 import { Server, Socket } from 'socket.io';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 import logger from '../utils/winstonLogger';
 
 const EVENTS = {
@@ -32,7 +32,7 @@ export function socket({ io }: { io: Server }) {
     socket.on(EVENTS.CLIENT.CREATE_ROOM, ({ roomName }) => {
       console.log({ roomName });
       // create a roomId
-      const roomId = uuid.v4().toString();
+      const roomId = v4().toString();
       // add a new room to the rooms object
       rooms[roomId] = {
         name: roomName,
@@ -57,7 +57,7 @@ export function socket({ io }: { io: Server }) {
       EVENTS.CLIENT.SEND_ROOM_MESSAGE,
       ({ roomId, message, username }) => {
         const date = new Date();
-
+        console.log(roomId, message, username);
         socket.to(roomId).emit(EVENTS.SERVER.ROOM_MESSAGE, {
           message,
           username,
@@ -70,6 +70,7 @@ export function socket({ io }: { io: Server }) {
      * When a user joins a room
      */
     socket.on(EVENTS.CLIENT.JOIN_ROOM, (roomId) => {
+      console.log(roomId);
       socket.join(roomId);
 
       socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
