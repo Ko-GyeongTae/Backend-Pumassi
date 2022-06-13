@@ -1,28 +1,6 @@
-import { IsJSON, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export class setInitDTO {
+export class CreateRoomDto {
   @IsString()
-  nickname: string;
-
-  @IsJSON()
-  room: Room;
-}
-
-export class chatRoomListDTO {
-  @IsString()
-  roomId: string;
-
-  @IsString()
-  cheifId: string;
-
-  @IsString()
-  roomName: string;
-}
-
-class Room {
-  @IsString()
-  roomId: string;
-
-  @IsString()
-  roomName: string;
+  title: string;
 }

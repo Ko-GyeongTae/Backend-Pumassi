@@ -2,17 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ManyToOne,
-  PrimaryColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { Message } from './message.entity';
+import { UserRoom } from './user_room.entity';
 
 @Entity()
 export class Room {
-  @PrimaryColumn({ type: 'varchar', length: 30 })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 20, unique: true })
   title: string;
 
   @CreateDateColumn({
@@ -27,6 +28,9 @@ export class Room {
   })
   deletedAt: Date;
 
-  @ManyToOne(() => User, (owner) => owner.rooms)
-  member: User;
+  @OneToMany(() => UserRoom, (ur) => ur.rid)
+  user_rooms: UserRoom[];
+
+  @OneToMany(() => Message, (message) => message.room)
+  messages: Message[];
 }
