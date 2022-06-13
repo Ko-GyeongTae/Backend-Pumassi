@@ -3,17 +3,17 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Message } from './message.entity';
 import { UserRoom } from './user_room.entity';
 
 @Entity()
 export class Room {
-  @PrimaryColumn({ type: 'varchar', length: 30 })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 20, unique: true })
   title: string;
 
   @CreateDateColumn({
@@ -31,6 +31,6 @@ export class Room {
   @OneToMany(() => UserRoom, (ur) => ur.rid)
   user_rooms: UserRoom[];
 
-  @OneToMany(() => Message, (message) => message.user)
+  @OneToMany(() => Message, (message) => message.room)
   messages: Message[];
 }

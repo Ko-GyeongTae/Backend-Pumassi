@@ -11,10 +11,10 @@ import { User } from './user.entity';
 
 @Entity()
 export class UserRoom {
-  @PrimaryColumn({ type: 'varchar', length: 30 })
+  @PrimaryColumn({ type: 'varchar' })
   uid: string;
 
-  @PrimaryColumn({ type: 'varchar', length: 30 })
+  @PrimaryColumn({ type: 'varchar' })
   rid: string;
 
   @ManyToOne(() => User, (user) => user.id)
