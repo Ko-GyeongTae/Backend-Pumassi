@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import express, { Application, Request, Response } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -12,20 +13,22 @@ import { Server } from 'socket.io';
 import http from 'http';
 import 'reflect-metadata';
 import { socket } from './chat/chat';
+import { apiCacheMiddleware } from './middleware/apicacheMiddleware';
 
 const app: Application = express();
 
-app.set('port', 4120);
+app.set('host_port', 4120);
 app.set('host', '0.0.0.0');
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     credentials: true,
   }),
 );
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(apiCacheMiddleware());
 app.use(cookieParser());
 app.use(logMiddleware());
 
@@ -50,9 +53,9 @@ const io = new Server(httpServer, {
   },
 });
 
-httpServer.listen(app.get('port'), app.get('host'), async () => {
+httpServer.listen(app.get('host_port'), app.get('host'), async () => {
   await dbCreateConnection();
-  console.log(`✅  Server listening on port: ${app.get('port')}`);
+  console.log(`✅  Server listening on port: ${app.get('host_port')}`);
 
   socket({ io });
 });

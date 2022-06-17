@@ -49,6 +49,8 @@ export const signIn = async (req: Request, res: Response): Promise<void> => {
       })
       .json({
         message: '로그인에 성공하였습니다.',
+        accessToken,
+        refreshToken,
       });
     return;
   } else {
