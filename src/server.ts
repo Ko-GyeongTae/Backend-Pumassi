@@ -17,7 +17,12 @@ const app: Application = express();
 
 app.set('port', 4120);
 app.set('host', '0.0.0.0');
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  }),
+);
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
