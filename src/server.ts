@@ -21,7 +21,7 @@ app.set('host_port', 4120);
 app.set('host', '0.0.0.0');
 app.use(
   cors({
-    origin: '*',
+    origin: true,
     credentials: true,
   }),
 );
