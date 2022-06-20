@@ -1,5 +1,4 @@
 import { Server, Socket } from 'socket.io';
-import { v4 } from 'uuid';
 import logger from '../utils/winstonLogger';
 
 const EVENTS = {
