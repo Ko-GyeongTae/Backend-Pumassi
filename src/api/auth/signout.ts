@@ -10,5 +10,5 @@ export const signOut = async (req: Request, res: Response): Promise<void> => {
     res.status(400).json({ message: '로그아웃에 실패하였습니다.' });
     return;
   }
-  res.status(200).clearCookie('accessToken').clearCookie('refreshToken');
+  res.status(200).clearCookie('accessToken').clearCookie('refreshToken').end();
 };
